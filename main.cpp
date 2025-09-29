@@ -36,7 +36,7 @@ public:
     }
 };
 
-int main(void)
+int main(void, int Size)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ int main(void)
             DrawText("move the ball with arrow keys", 10, 10, 20, DARKGRAY);
 
             DrawCircleV(ballPosition, 50, MAROON);
-            DrawCircleV(meteorPosition, 50, MAROON);
+            DrawCircleV(Meteor());
             
            
         EndDrawing();
