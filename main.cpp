@@ -16,21 +16,27 @@
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-    class Meteor(){
-        int Size = GetRandomValue(5, 10);
-        int Speed = GetRandomValue(0.1, 0.5);
-        Vector2 Position = (GetRandomValue(0, 840), -40 );
-        
-        void Movement(){ Position -= Speed; }
-        void Recycle(){
-            if (meteorPosition >= 840 ) {
+class Meteor {
+public:
+    int Size = GetRandomValue(5, 10);
+    int Speed = GetRandomValue(0.1, 0.5);
+    Vector2 Position = {GetRandomValue(0, 840), -40 };
+    
+    void Movement(){ 
+        Position.x -= Speed;
+        Position.y -= Speed;
+    }
+    void Recycle(float meteorPosition){
+        if (meteorPosition >= 840 ) {
             Size = GetRandomValue(5, 10);
             Speed = GetRandomValue(0.1, 0.5);
-            Position = (GetRandomValue(0, 840), -40 );
-            }
+            Position.x = (float)GetRandomValue(0, 840);
+            Position.y -= (float)-40;
         }
     }
-int Main(void)
+};
+
+int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -40,7 +46,6 @@ int Main(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - keyboard input");
 
     Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
-    float ballRadius = 50.0f;
     Vector2 meteorPosition = {GetRandomValue(0, (float)screenWidth), (float)screenHeight/64};
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -56,11 +61,8 @@ int Main(void)
         if (IsKeyDown(KEY_UP)) ballPosition.y -= 2.0f;
         if (IsKeyDown(KEY_DOWN)) ballPosition.y += 2.0f;
         //----------------------------------------------------------------------------------
-        //Ball Wall Collision
-        if (ballPosition.x + ballRadius > screenWidth) ballPosition.x = screenWidth - ballRadius;
-        if (ballPosition.x - ballRadius < 0) ballPosition.x = ballRadius;
-        if (ballPosition.y + ballRadius > screenHeight) ballPosition.y = screenHeight - ballRadius;
-        if (ballPosition.y - ballRadius < 0) ballPosition.y = ballRadius;
+        
+       
         
         // Draw
         //----------------------------------------------------------------------------------
@@ -71,6 +73,7 @@ int Main(void)
             DrawText("move the ball with arrow keys", 10, 10, 20, DARKGRAY);
 
             DrawCircleV(ballPosition, 50, MAROON);
+            DrawCircleV(meteorPosition, 50, MAROON);
             
            
         EndDrawing();
