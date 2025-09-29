@@ -16,7 +16,21 @@
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int main(void)
+    class Meteor(){
+        int Size = GetRandomValue(5, 10);
+        int Speed = GetRandomValue(0.1, 0.5);
+        Vector2 Position = (GetRandomValue(0, 840), -40 );
+        
+        void Movement(){ Position -= Speed; }
+        void Recycle(){
+            if (meteorPosition >= 840 ) {
+            Size = GetRandomValue(5, 10);
+            Speed = GetRandomValue(0.1, 0.5);
+            Position = (GetRandomValue(0, 840), -40 );
+            }
+        }
+    }
+int Main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -27,10 +41,7 @@ int main(void)
 
     Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
     float ballRadius = 50.0f;
-    
-
-    void DrawHitbox(bool isColliding);
-
+    Vector2 meteorPosition = {GetRandomValue(0, (float)screenWidth), (float)screenHeight/64};
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -60,11 +71,13 @@ int main(void)
             DrawText("move the ball with arrow keys", 10, 10, 20, DARKGRAY);
 
             DrawCircleV(ballPosition, 50, MAROON);
-
-
+            
+           
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
+    
+    
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
